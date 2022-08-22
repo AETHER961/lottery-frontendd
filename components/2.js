@@ -28,54 +28,55 @@ export default function LotteryEntrance() {
    } = useWeb3Contract({
       abi: abi,
       contractAddress: raffleAddress,
-      functionName: "enterRaffle",
-      msgValue: entranceFee,
+      functionName: "fund",
+      msgValue: 111111111111111,
       params: {},
    })
 
    /* View Functions */
 
-   const { runContractFunction: getEntranceFee } = useWeb3Contract({
-      abi: abi,
-      contractAddress: raffleAddress, // specify the networkId
-      functionName: "getEntranceFee",
-      params: {},
-   })
+   // const { runContractFunction: getEntranceFee } = useWeb3Contract({
+   //    abi: abi,
+   //    contractAddress: raffleAddress, // specify the networkId
+   //    functionName: "getEntranceFee",
+   //    params: {},
+   // })
 
-   const { runContractFunction: getPlayersNumber } = useWeb3Contract({
-      abi: abi,
-      contractAddress: raffleAddress,
-      functionName: "getNumberOfPlayers",
-      params: {},
-   })
+   // const { runContractFunction: getPlayersNumber } = useWeb3Contract({
+   //    abi: abi,
+   //    contractAddress: raffleAddress,
+   //    functionName: "getNumberOfPlayers",
+   //    params: {},
+   // })
 
-   const { runContractFunction: getRecentWinner } = useWeb3Contract({
-      abi: abi,
-      contractAddress: raffleAddress,
-      functionName: "getRecentWinner",
-      params: {},
-   })
+   // const { runContractFunction: getRecentWinner } = useWeb3Contract({
+   //    abi: abi,
+   //    contractAddress: raffleAddress,
+   //    functionName: "getRecentWinner",
+   //    params: {},
+   // })
 
-   async function updateUIValues() {
-      // Another way we could make a contract call:
-      // const options = { abi, contractAddress: raffleAddress }
-      // const fee = await Moralis.executeFunction({
-      //     functionName: "getEntranceFee",
-      //     ...options,
-      // })
-      const entranceFeeFromCall = (await getEntranceFee()).toString()
-      const numPlayersFromCall = (await getPlayersNumber()).toString()
-      const recentWinnerFromCall = await getRecentWinner()
-      setEntranceFee(entranceFeeFromCall)
-      setNumberOfPlayers(numPlayersFromCall)
-      setRecentWinner(recentWinnerFromCall)
-   }
+   // async function updateUIValues() {
+   //    // Another way we could make a contract call:
+   //    // const options = { abi, contractAddress: raffleAddress }
+   //    // const fee = await Moralis.executeFunction({
+   //    //     functionName: "getEntranceFee",
+   //    //     ...options,
+   //    // })
+   //    const entranceFeeFromCall = (await getEntranceFee()).toString()
+   //    const numPlayersFromCall = (await getPlayersNumber()).toString()
+   //    const recentWinnerFromCall = await getRecentWinner()
+   //    setEntranceFee(entranceFeeFromCall)
+   //    setNumberOfPlayers(numPlayersFromCall)
+   //    setRecentWinner(recentWinnerFromCall)
+   //    console.log("getEntranceFee()", ethers.utils.formatUnits(await getEntranceFee(), "ether"))
+   // }
 
-   useEffect(() => {
-      if (isWeb3Enabled) {
-         updateUIValues()
-      }
-   }, [isWeb3Enabled])
+   // useEffect(() => {
+   //    if (isWeb3Enabled) {
+   //       updateUIValues()
+   //    }
+   // }, [isWeb3Enabled])
    // no list means it'll update everytime anything changes or happens
    // empty list means it'll run once after the initial rendering
    // and dependencies mean it'll run whenever those things in the list change
@@ -102,7 +103,7 @@ export default function LotteryEntrance() {
    // Probably could add some error handling
    const handleSuccess = async (tx) => {
       await tx.wait(1)
-      updateUIValues()
+      // updateUIValues()
       handleNewNotification(tx)
    }
 
